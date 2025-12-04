@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Stroy Shop — Інтернет-магазин будматеріалів</title>
+
+  <!-- Шрифт -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Основные стили -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Lucide (іконки, глобальна змінна lucide) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Наш JS -->
+  <script src="script.js" defer></script>
+</head>
+<body id="top">
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo-wrapper">
+  <div class="logo-avatar">
+    <img src="https://i.ibb.co/PZGTwyqp/unnamed.jpg" alt="logo">
+  </div>
+    <div class="logo">Stroy Shop</div>
+    <div class="logo-sub">Будматеріали з доставкою по Україні</div>
+  </div>
+ </div>
+  <div class="header-center">
+    <div class="search-bar">
+      <i data-lucide="search"></i>
+      <input id="searchInput" placeholder="Пошук: ковролін, плитка, шпалери..." />
+    </div>
+  </div>
+
+  <div class="header-right">
+    <button class="btn btn-outline js-consult">
+      <i data-lucide="message-circle"></i>
+      Консультація
+    </button>
+    <button class="btn cart-btn" id="openCartBtn">
+      <i data-lucide="shopping-cart"></i>
+      <span>Кошик</span>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<main>
+  <!-- HERO / SLIDER -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-slide active" data-index="0">
+        <h1>Ремонт без нервів</h1>
+        <p>Ковролін, плитка, шпалери та самоклейка — все в одному місці. Підбір під ваш бюджет.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary js-consult">
+            <i data-lucide="send"></i> Потрібна порада
+          </button>
+          <button class="btn btn-outline" id="scrollToProductsBtn">
+            Переглянути товари
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-slide" data-index="1">
+        <h1>Опт та знижки</h1>
+        <p>-10% при замовленні від 10 м². Персональні пропозиції для майстрів та дизайнерів.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary js-consult">
+            Запит на опт
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-slide" data-index="2">
+        <h1>Доставка Новою Поштою</h1>
+        <p>Оплата при отриманні. Перевірка посилки на відділенні перед оплатою.</p>
+        <div class="hero-cta">
+          <button class="btn btn-primary js-consult">
+            Питання по доставці
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-dots">
+        <button class="hero-dot active" data-index="0"></button>
+        <button class="hero-dot" data-index="1"></button>
+        <button class="hero-dot" data-index="2"></button>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-info-row">
+        <i data-lucide="truck"></i>
+        <div>
+          <div class="hero-info-title">Доставка по Україні</div>
+          <div class="hero-info-text">Нова Пошта, оплата при отриманні</div>
+        </div>
+      </div>
+      <div class="hero-info-row">
+        <i data-lucide="shield-check"></i>
+        <div>
+          <div class="hero-info-title">Гарантія якості</div>
+          <div class="hero-info-text">Перевірені постачальники та матеріали</div>
+        </div>
+      </div>
+      <div class="hero-info-row">
+        <i data-lucide="headphones"></i>
+        <div>
+          <div class="hero-info-title">Живий менеджер</div>
+          <div class="hero-info-text">Консультації в Telegram</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+  <section class="sale-section">
+    <h2 class="section-title">Акція товари з уцінкою</h2>
+    <div class="sale-slider" id="saleSlider"></div>
+  </section>
+
+  <!-- FILTERS -->
+  <section class="filters">
+    <div class="filters-left">
+      <span class="filters-label">Категорії:</span>
+      <div class="categories" id="categories">
+        <!-- Кнопки категорий JS добавит сюда -->
+      </div>
+    </div>
+
+    <div class="filters-right">
+      <div class="filters-price-box">
+        <span class="filters-label">Ціна:</span>
+        <input type="number" id="minPrice" placeholder="від">
+        <input type="number" id="maxPrice" placeholder="до">
+      </div>
+      <div class="filters-sort-box">
+        <span class="filters-label">Сортування:</span>
+        <select id="sortSelect">
+          <option value="default">За замовчуванням</option>
+          <option value="price-asc">Спочатку дешевші</option>
+          <option value="price-desc">Спочатку дорожчі</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section class="products-section" id="productsSection">
+    <h2 class="section-title">Популярні товари</h2>
+    <div class="products-grid" id="productsGrid">
+      <!-- Карточки товаров JS рендерит сюда -->
+    </div>
+  </section>
+
+  <!-- INFO -->
+  <section class="info-section" id="howToOrder">
+    <h2 class="section-title">Як відбувається замовлення</h2>
+    <div class="info-grid">
+      <div class="info-card">
+        <h3>1. Обираєте товари</h3>
+        <p>Додаєте в кошик позиції та потрібну кількість. Можна комбінувати різні категорії.</p>
+      </div>
+      <div class="info-card">
+        <h3>2. Заповнюєте дані</h3>
+        <p>Натискаєте «Оформити замовлення» — ми згенеруємо текст заявки в Telegram.</p>
+      </div>
+      <div class="info-card">
+        <h3>3. Відправка Новою Поштою</h3>
+        <p>Уточнюємо з вами деталі, відправляємо посилку. Оплата при отриманні.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="footer-col footer-brand">
+    <div class="footer-logo">Stroy Shop</div>
+    <p>Інтернет-магазин будівельних матеріалів. Підбір, консультація та відправка по всій Україні.</p>
+    <div class="footer-copy">© <span id="year"></span> Stroy Shop. Всі права захищені.</div>
+  </div>
+
+  <div class="footer-col footer-nav-col">
+    <div class="footer-title">Навігація</div>
+    <nav class="footer-nav">
+      <a href="#productsSection">Каталог</a>
+      <a href="#howToOrder">Як замовити</a>
+      <a href="#top">Акції та знижки</a>
+    </nav>
+  </div>
+
+  <div class="footer-col footer-contacts">
+    <div class="footer-title">Контакти</div>
+    <a href="https://t.me/stroy_shop_ua" target="_blank" class="footer-link">
+      <i data-lucide="send"></i> Telegram-канал
+    </a>
+    <a href="https://www.tiktok.com/@stroyshop_ua" target="_blank" class="footer-link">
+      <i data-lucide="play-circle"></i> TikTok: @stroyshop_ua
+    </a>
+    <a href="tel:+380984927948" class="footer-phone">
+      <i data-lucide="phone"></i> +380&nbsp;98&nbsp;492&nbsp;79&nbsp;48
+    </a>
+  </div>
+
+  <div class="footer-col footer-manager">
+    <div class="footer-title">Ваш менеджер</div>
+    <div class="footer-manager-box">
+      <div class="footer-manager-avatar">
+        <img src="https://i.ibb.co/xSSb5csr/unnamedda.jpg" alt="Менеджер магазину">
+      </div>
+      <div>
+        <div class="footer-manager-name">Менеджер Stroy Shop</div>
+        <a href="https://t.me/manager_stroyshop_ua" target="_blank" class="footer-link">
+          <i data-lucide="message-circle"></i> Написати в Telegram
+        </a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- PRODUCT MODAL -->
+<div id="productModalOverlay" class="modal-overlay hidden"></div>
+<div id="productModal" class="modal hidden">
+  <div class="modal-header">
+    <h3>Товар</h3>
+    <button class="modal-close" id="productModalClose"><i data-lucide="x"></i></button>
+  </div>
+  <div class="modal-body">
+    <img id="modalImage" src="" alt="">
+    <div class="modal-info">
+      <div class="filters-label" id="modalCategory"></div>
+      <h2 id="modalTitle"></h2>
+      <div>Артикул: <span id="modalSku"></span></div>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-desc" id="modalShort"></div>
+
+      <div class="modal-qty-row">
+        <span>Кількість:</span>
+        <div class="qty-control">
+          <input type="number" id="modalQtyInput" class="qty-input" min="1" value="1">
+          <div class="qty-arrows">
+            <button class="qty-arrow" id="modalQtyUp"><i data-lucide="chevron-up"></i></button>
+            <button class="qty-arrow" id="modalQtyDown"><i data-lucide="chevron-down"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn btn-primary" id="modalAddToCart">
+          <i data-lucide="shopping-cart"></i> Додати у кошик
+        </button>
+        <button class="btn btn-outline" id="modalToggleFull">
+          Детальний опис
+        </button>
+      </div>
+
+      <div class="modal-full" id="modalFull"></div>
+
+      <div class="modal-help">
+        <div class="modal-help-card">
+          <div class="modal-help-avatar">
+            <img src="https://i.ibb.co/xSSb5csr/unnamedda.jpg" alt="Менеджер">
+          </div>
+          <div class="modal-help-content">
+            <div class="modal-help-title">Не знайшли відповідь на питання?</div>
+            <a href="https://t.me/manager_stroyshop_ua" target="_blank" class="btn btn-outline">
+              <i data-lucide="message-circle"></i> Зв'язатися з менеджером
+            </a>
+          </div>
+        </div>
+
+        <div class="hero-info-row">
+          <i data-lucide="truck"></i>
+          <div>
+            <div class="hero-info-title">Доставка по Україні</div>
+            <div class="hero-info-text">Нова Пошта, оплата при отриманні</div>
+          </div>
+        </div>
+        <div class="hero-info-row">
+          <i data-lucide="shield-check"></i>
+          <div>
+            <div class="hero-info-title">Гарантія якості</div>
+            <div class="hero-info-text">Перевірені постачальники</div>
+          </div>
+        </div>
+        <div class="hero-info-row">
+          <i data-lucide="headphones"></i>
+          <div>
+            <div class="hero-info-title">Живий менеджер</div>
+            <div class="hero-info-text">Telegram-консультації</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- CHECKOUT MODAL -->
+<div id="checkoutOverlay" class="modal-overlay hidden"></div>
+<div id="checkoutModal" class="modal hidden">
+  <div class="modal-header">
+    <h3>Оформлення замовлення</h3>
+    <button class="modal-close" id="checkoutClose"><i data-lucide="x"></i></button>
+  </div>
+  <div class="modal-body">
+    <div class="modal-info">
+      <p class="modal-desc">
+        Заповніть контактні дані. Після натискання кнопки відкриється Telegram
+        з уже заповненим повідомленням. Ви просто натиснете «Відправити».
+      </p>
+      <form class="checkout-form" id="checkoutForm">
+        <label>Ім’я:<br><input id="checkoutName" required></label>
+        <label>Телефон:<br><input id="checkoutPhone" required></label>
+        <label>Місто:<br><input id="checkoutCity" required></label>
+        <label>Відділення Нової Пошти:<br><input id="checkoutPost" required></label>
+        <button class="btn btn-primary" type="submit">Відправити в Telegram</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div id="cartOverlay" class="cart-overlay hidden"></div>
+<aside id="cartDrawer" class="cart-drawer">
+  <div class="cart-header">
+    <h3>Кошик</h3>
+    <button class="modal-close" id="cartClose"><i data-lucide="x"></i></button>
+  </div>
+  <div class="cart-body" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total-row">
+      <span>Разом:</span><span id="cartTotal">0 грн</span>
+    </div>
+    <button class="btn btn-primary" id="cartCheckoutBtn">Оформити замовлення</button>
+    <button class="btn btn-outline" id="cartClearBtn">Очистити кошик</button>
+  </div>
+</aside>
+
+<!-- TOAST -->
+<div id="toast" class="toast">Повідомлення</div>
+<script src="script.js"></script>
+</body>
+</html>
