@@ -55,22 +55,22 @@ function getCategoryFromTitle(title) {
 const DEFAULT_PRODUCTS = [
   {
     id:1,
-    title:'Ковролін SoftLux 4м — кремовий',
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
     sku:14417,
-    img:'https://via.placeholder.com/600x400?text=Carpet',
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
     unit:'м',
     short:'М’який і зносостійкий ковролін для житлових кімнат.',
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
   {
     id:2,
-    title:'Плівка біла матова 0.45м',
+    title:'Уценка Плівка біла матова 0.45м',
     category: getCategoryFromTitle('Плівка біла матова 0.45м'),
     price:59,
     sku:14418,
-    img:'https://via.placeholder.com/600x400?text=Film',
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
     unit:'м',
     short:'Самоклейна плівка для меблів і декору.',
     full:'Матовий білий відтінок, підходить для фасадів меблів, дверей, підвіконь. Легко клеїться без бульбашок.'
@@ -81,7 +81,7 @@ const DEFAULT_PRODUCTS = [
     category: getCategoryFromTitle('Шпалери Modern Stone'),
     price:129,
     sku:14419,
-    img:'https://via.placeholder.com/600x400?text=Wallpaper',
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
     unit:'м',
     short:'Шпалери з ефектом натурального каменю.',
     full:'Текстурована поверхня під камінь. Підходить для акцентних стін у вітальні, коридорі, кухні.'
@@ -92,7 +92,7 @@ const DEFAULT_PRODUCTS = [
     category: getCategoryFromTitle('Плитка самоклейка 20×20'),
     price:250,
     sku:14420,
-    img:'https://via.placeholder.com/600x400?text=Tile',
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
     unit:'шт',
     short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
     full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
@@ -280,6 +280,11 @@ function renderCategories(){
 ============================================================ */
 const productsGrid = document.getElementById('productsGrid');
 
+function highlightSale(text){
+  if(!text) return text;
+  return text.replace(/Уценка/gi, '<span class="badge-sale">Уценка</span>');
+}
+
 function renderProducts(list){
   productsGrid.innerHTML = '';
   list.forEach(p=>{
@@ -291,7 +296,7 @@ function renderProducts(list){
         <button class="product-quick-btn js-quick-view" data-id="${p.id}">Швидкий перегляд</button>
       </div>
       <div class="product-tag">${p.category || ''}</div>
-      <div class="product-title">${p.title}</div>
+      <div class="product-title">${highlightSale(p.title)}</div>
       <div class="product-meta">
         <span>Артикул: ${p.sku}</span>
         <span>${p.unit}</span>
@@ -431,6 +436,7 @@ function addToCart(id, qtyFromModal){
 
   saveCart();
   updateCartUI();
+
   showToast('Товар додано у кошик');
 }
 
@@ -468,6 +474,23 @@ function updateCartUI(){
 
   document.getElementById('cartTotal').textContent = money(total);
   document.getElementById('cartCount').textContent = cart.reduce((s,i)=>s+i.qty,0);
+
+  /* -----------------------------------------------
+     🟧 АНИМАЦИЯ КНОПКИ КОРЗИНЫ
+  ------------------------------------------------ */
+  const cartBtn = document.querySelector('.cart-btn');
+
+  // Всплеск при добавлении товара (bubble)
+  cartBtn.classList.remove('cart-added');
+  void cartBtn.offsetWidth; // перезапуск CSS-анимации
+  cartBtn.classList.add('cart-added');
+
+  // Пульсация, если корзина не пустая
+  if (cart.length > 0) {
+    cartBtn.classList.add('cart-has-items');
+  } else {
+    cartBtn.classList.remove('cart-has-items');
+  }
 }
 
 
@@ -485,6 +508,7 @@ document.getElementById('cartClearBtn').addEventListener('click',()=>{
   saveCart();
   updateCartUI();
 });
+
 
 /* ============================================================
    🟧 13. ОТКРЫТИЕ / ЗАКРЫТИЕ КОРЗИНЫ
@@ -522,22 +546,106 @@ const modalShort = document.getElementById('modalShort');
 const modalFull = document.getElementById('modalFull');
 const modalQtyInput = document.getElementById('modalQtyInput');
 
+/**
+ * Красиво форматируем длинное описание:
+ * - абзацы
+ * - маркеры списков (- • — *)
+ * - нумерованные списки (1., 2) 
+ * - заголовки (строки, заканчивающиеся ':')
+ */
+function formatDescription(text){
+  if (!text) return '';
+
+  // Нормализуем переносы строк и пробелы
+  text = text
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n')
+    .replace(/\u00A0/g, ' ')
+    .trim();
+
+  const lines = text.split('\n');
+  const htmlParts = [];
+
+  let inUl = false;
+  let inOl = false;
+
+  const closeLists = () => {
+    if (inUl) {
+      htmlParts.push('</ul>');
+      inUl = false;
+    }
+    if (inOl) {
+      htmlParts.push('</ol>');
+      inOl = false;
+    }
+  };
+
+  for (let rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) continue;
+
+    // Заголовок (строка, заканчивающаяся двоеточием)
+    if (/^[A-Za-zА-Яа-яЁёЇїІіЄєҐґ0-9].*:\s*$/.test(line)) {
+      closeLists();
+      const title = line.replace(/:\s*$/, '');
+      htmlParts.push(`<h3>${title}</h3>`);
+      continue;
+    }
+
+    // Маркированный список: "-", "–", "•", "*"
+    const bulletMatch = line.match(/^[-–•*]\s+(.+)/);
+    if (bulletMatch) {
+      if (!inUl) {
+        closeLists();
+        htmlParts.push('<ul>');
+        inUl = true;
+      }
+      htmlParts.push(`<li>${bulletMatch[1]}</li>`);
+      continue;
+    }
+
+    // Нумерованный список: "1.", "2)", "3 "
+    const numMatch = line.match(/^(\d+)[\).\s]\s*(.+)/);
+    if (numMatch) {
+      if (!inOl) {
+        closeLists();
+        htmlParts.push('<ol>');
+        inOl = true;
+      }
+      htmlParts.push(`<li>${numMatch[2]}</li>`);
+      continue;
+    }
+
+    // Обычный абзац
+    closeLists();
+    htmlParts.push(`<p>${line}</p>`);
+  }
+
+  // Закрываем открытые списки
+  closeLists();
+
+  return htmlParts.join('');
+}
+
 function openProductModal(id){
-  const p = PRODUCTS.find(x=>x.id===id);
-  if(!p) return;
+  const p = PRODUCTS.find(x => x.id === id);
+  if (!p) return;
   currentProductId = id;
 
   modalImage.src = p.img;
   modalCategory.textContent = p.category || '';
-  modalTitle.textContent = p.title;
+  modalTitle.innerHTML = highlightSale(p.title);
   modalSku.textContent = p.sku;
   modalPrice.textContent = money(p.price);
-  
+
+  // Короткое описание как есть
   modalShort.innerHTML = p.short;
-  modalFull.innerHTML = p.full;
-  
+
+  // Детальное описание — с красивым форматированием
+  modalFull.innerHTML = formatDescription(p.full);
+
   modalQtyInput.value = 1;
-  modalFull.style.display = 'none';
+  modalFull.style.display = 'none'; // по умолчанию скрыто
 
   productModal.classList.remove('hidden');
   productModalOverlay.classList.remove('hidden');
@@ -555,25 +663,26 @@ function closeProductModal(){
 document.getElementById('productModalClose').addEventListener('click', closeProductModal);
 productModalOverlay.addEventListener('click', closeProductModal);
 
-document.getElementById('modalQtyUp').addEventListener('click', ()=>{
-  let v = parseFloat(modalQtyInput.value||'1')+1;
-  if(v<1) v=1;
-  modalQtyInput.value = v;
-});
-document.getElementById('modalQtyDown').addEventListener('click', ()=>{
-  let v = parseFloat(modalQtyInput.value||'1')-1;
-  if(v<1) v=1;
+document.getElementById('modalQtyUp').addEventListener('click', () => {
+  let v = parseFloat(modalQtyInput.value || '1') + 1;
+  if (v < 1) v = 1;
   modalQtyInput.value = v;
 });
 
-document.getElementById('modalAddToCart').addEventListener('click', ()=>{
-  if(currentProductId==null) return;
-  const qty = parseFloat(modalQtyInput.value||'1');
+document.getElementById('modalQtyDown').addEventListener('click', () => {
+  let v = parseFloat(modalQtyInput.value || '1') - 1;
+  if (v < 1) v = 1;
+  modalQtyInput.value = v;
+});
+
+document.getElementById('modalAddToCart').addEventListener('click', () => {
+  if (currentProductId == null) return;
+  const qty = parseFloat(modalQtyInput.value || '1');
   addToCart(currentProductId, qty);
   closeProductModal();
 });
 
-document.getElementById('modalToggleFull').addEventListener('click', ()=>{
+document.getElementById('modalToggleFull').addEventListener('click', () => {
   modalFull.style.display = modalFull.style.display === 'block' ? 'none' : 'block';
 });
 
@@ -689,3 +798,35 @@ if (scrollBtn) {
     lucide.createIcons();
   }
 })();
+
+/* ============================================================
+   🟧 19. СКРОЛИНГ УЦЕНЁННЫХ ТОВАРОВ
+============================================================ */
+const saleSlider = document.getElementById('saleSlider');
+if (saleSlider) {
+  saleSlider.addEventListener('wheel', (e) => {
+    e.preventDefault();
+    saleSlider.scrollLeft += e.deltaY * 1.5;
+  }, { passive: false });
+
+  // Сенсорный свайп (touch)
+  let startX = 0;
+  let scrollLeftStart = 0;
+
+  saleSlider.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].pageX;
+    scrollLeftStart = saleSlider.scrollLeft;
+  });
+
+  saleSlider.addEventListener('touchmove', (e) => {
+    const dx = startX - e.touches[0].pageX;
+    saleSlider.scrollLeft = scrollLeftStart + dx;
+  });
+}
+
+// Клик по фото — увеличиваем / возвращаем назад
+const modalImg = document.getElementById('modalImage');
+
+modalImg.addEventListener('click', () => {
+  modalImg.classList.toggle('zoomed');
+});
