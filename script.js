@@ -957,13 +957,25 @@ if (scrollBtn) {
   const yearSpan = document.getElementById('year');
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
   
-  
-await loadProductsFromXML(); // грузим products.xml
-renderCategories();          // рисуем кнопки категорий
-renderSaleProducts();        // Загрузка акционных
-filterProducts();            // она сама заполнит FILTERED_PRODUCTS и вызовет updateProductsView() // показываем товары
-updateCartUI();              // корзина
-hideLoader();                // прячем анимацию после загрузки товаров
+
+await loadProductsFromXML();
+renderCategories();
+renderSaleProducts();
+
+// Сначала считаем фильтр (по умолчанию "Усі"), он же заполнит FILTERED_PRODUCTS
+FILTERED_PRODUCTS = [...PRODUCTS];
+visibleCount = PAGE_SIZE;
+updateProductsView();
+
+updateCartUI();
+hideLoader();
+
+// await loadProductsFromXML(); // грузим products.xml
+// renderCategories();          // рисуем кнопки категорий
+// renderSaleProducts();        // Загрузка акционных
+// filterProducts();            // она сама заполнит FILTERED_PRODUCTS и вызовет updateProductsView() // показываем товары
+// updateCartUI();              // корзина
+// hideLoader();                // прячем анимацию после загрузки товаров
 
   if (window.lucide) {
     lucide.createIcons();
