@@ -65,7 +65,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:2,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -76,7 +76,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:3,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -87,7 +87,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:4,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -98,7 +98,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:5,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -109,7 +109,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:6,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -120,7 +120,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:7,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -131,7 +131,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:8,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -142,7 +142,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
     {
-    id:1,
+    id:9,
     title:'Уценка Ковролін SoftLux 4м — кремовий',
     category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
     price:279,
@@ -153,7 +153,7 @@ const DEFAULT_PRODUCTS = [
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
   {
-    id:2,
+    id:10,
     title:'Уценка Плівка біла матова 0.45м',
     category: getCategoryFromTitle('Плівка біла матова 0.45м'),
     price:59,
@@ -164,7 +164,7 @@ const DEFAULT_PRODUCTS = [
     full:'Матовий білий відтінок, підходить для фасадів меблів, дверей, підвіконь. Легко клеїться без бульбашок.'
   },
   {
-    id:3,
+    id:11,
     title:'Шпалери Modern Stone',
     category: getCategoryFromTitle('Шпалери Modern Stone'),
     price:129,
@@ -175,7 +175,205 @@ const DEFAULT_PRODUCTS = [
     full:'Текстурована поверхня під камінь. Підходить для акцентних стін у вітальні, коридорі, кухні.'
   },
   {
-    id:4,
+    id:12,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:13,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:14,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:15,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:16,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:17,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:18,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:19,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:20,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:21,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:22,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:23,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:24,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+  {
+    id:25,
+    title:'Уценка Плівка біла матова 0.45м',
+    category: getCategoryFromTitle('Плівка біла матова 0.45м'),
+    price:59,
+    sku:14418,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'Самоклейна плівка для меблів і декору.',
+    full:'Матовий білий відтінок, підходить для фасадів меблів, дверей, підвіконь. Легко клеїться без бульбашок.'
+  },
+  {
+    id:26,
+    title:'Шпалери Modern Stone',
+    category: getCategoryFromTitle('Шпалери Modern Stone'),
+    price:129,
+    sku:14419,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'Шпалери з ефектом натурального каменю.',
+    full:'Текстурована поверхня під камінь. Підходить для акцентних стін у вітальні, коридорі, кухні.'
+  },
+  {
+    id:12,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:27,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:14,
+    title:'Плитка самоклейка 20×20',
+    category: getCategoryFromTitle('Плитка самоклейка 20×20'),
+    price:250,
+    sku:14420,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'шт',
+    short:'Самоклейні плитки для швидкого оновлення кухні чи ванної.',
+    full:'Водостійка поверхня, підходить для фартухів на кухні та зон навколо умивальника.'
+  },
+  {
+    id:28,
     title:'Плитка самоклейка 20×20',
     category: getCategoryFromTitle('Плитка самоклейка 20×20'),
     price:250,
@@ -957,25 +1155,13 @@ if (scrollBtn) {
   const yearSpan = document.getElementById('year');
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
   
-
-await loadProductsFromXML();
-renderCategories();
-renderSaleProducts();
-
-// Сначала считаем фильтр (по умолчанию "Усі"), он же заполнит FILTERED_PRODUCTS
-FILTERED_PRODUCTS = [...PRODUCTS];
-visibleCount = PAGE_SIZE;
-updateProductsView();
-
-updateCartUI();
-hideLoader();
-
-// await loadProductsFromXML(); // грузим products.xml
-// renderCategories();          // рисуем кнопки категорий
-// renderSaleProducts();        // Загрузка акционных
-// filterProducts();            // она сама заполнит FILTERED_PRODUCTS и вызовет updateProductsView() // показываем товары
-// updateCartUI();              // корзина
-// hideLoader();                // прячем анимацию после загрузки товаров
+  
+await loadProductsFromXML(); // грузим products.xml
+renderCategories();          // рисуем кнопки категорий
+renderSaleProducts();        // Загрузка акционных
+filterProducts();            // она сама заполнит FILTERED_PRODUCTS и вызовет updateProductsView() // показываем товары
+updateCartUI();              // корзина
+hideLoader();                // прячем анимацию после загрузки товаров
 
   if (window.lucide) {
     lucide.createIcons();
