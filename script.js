@@ -1,7 +1,7 @@
 /* ============================================================
    🟧 1. ГЛОБАЛЬНЫЕ НАСТРОЙКИ
 ============================================================ */
-const TELEGRAM_USERNAME = 'manager_stroyshop_ua';
+const TELEGRAM_USERNAME = 'manager_samostroy_shop';
 const XML_FEED_URL = 'products.xml';
 
 /* ============================================================
@@ -64,6 +64,94 @@ const DEFAULT_PRODUCTS = [
     short:'М’який і зносостійкий ковролін для житлових кімнат.',
     full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
   },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
+    {
+    id:1,
+    title:'Уценка Ковролін SoftLux 4м — кремовий',
+    category: getCategoryFromTitle('Ковролін SoftLux 4м — кремовий'),
+    price:279,
+    sku:14417,
+    img:'https://i.ibb.co/PZGTwyqp/unnamed.jpg',
+    unit:'м',
+    short:'М’який і зносостійкий ковролін для житлових кімнат.',
+    full:'Ковролін SoftLux — щільний, приємний на дотик матеріал. Оптимальний для спальні та вітальні.'
+  },
   {
     id:2,
     title:'Уценка Плівка біла матова 0.45м',
@@ -100,6 +188,41 @@ const DEFAULT_PRODUCTS = [
 ];
 
 let PRODUCTS = [...DEFAULT_PRODUCTS];
+
+
+/* ============================== 
++++ ДЛЯ ОБРЕЗКИ ПО 25 ТОВАРОВ 
+============================== */
+
+// Сколько товаров показывать за один раз
+const PAGE_SIZE = 25;
+
+// Отфильтрованный список (после категорий и поиска)
+let FILTERED_PRODUCTS = [];
+
+// Сколько сейчас показано на экране
+let visibleCount = PAGE_SIZE;
+
+// Обновление вида товаров с учётом visibleCount
+function updateProductsView() {
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (!FILTERED_PRODUCTS) FILTERED_PRODUCTS = [];
+
+  // Берем только нужный кусок массива
+  const toShow = FILTERED_PRODUCTS.slice(0, visibleCount);
+
+  // Рендерим как раньше, только не весь список, а кусок
+  renderProducts(toShow);
+
+  // Управляем видимостью кнопки "Показати ще"
+  if (loadMoreBtn) {
+    if (visibleCount >= FILTERED_PRODUCTS.length) {
+      loadMoreBtn.style.display = 'none';   // Уже нечего догружать
+    } else {
+      loadMoreBtn.style.display = 'inline-flex'; // Еще есть товары
+    }
+  }
+}
 
 /* ============================================================
    🟧 5. КОРЗИНА
@@ -280,6 +403,15 @@ function renderCategories(){
 ============================================================ */
 const productsGrid = document.getElementById('productsGrid');
 
+// Кнопка "Показати ще"
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+if (loadMoreBtn) {
+  loadMoreBtn.addEventListener('click', () => {
+    visibleCount += PAGE_SIZE;         // плюс ещё 25
+    updateProductsView();              // перерисовали
+  });
+}
+
 function highlightSale(text){
   if(!text) return text;
   return text.replace(/Уценка/gi, '<span class="badge-sale">Уценка</span>');
@@ -319,9 +451,22 @@ function renderProducts(list){
   });
 
   if (window.lucide) {
+    // Анимация появления карточек
+requestAnimationFrame(() => {
+  document.querySelectorAll('.product-card').forEach(card => {
+    setTimeout(() => card.classList.add('show'), 50);
+  });
+});
+
     lucide.createIcons();
   }
 }
+
+function hideLoader() {
+  const loader = document.getElementById('loader');
+  if (loader) loader.classList.add('hide');
+}
+
 
 /* ============================================================
    🟧 9. ФИЛЬТР ТОВАРОВ
@@ -347,31 +492,22 @@ function filterProducts(){
 
   // ---- Поиск ----
   const q = document.getElementById('searchInput').value.trim().toLowerCase();
-  if(q){
-    list = list.filter(p=>p.title.toLowerCase().includes(q));
+  if (q) {
+    list = list.filter(p => p.title.toLowerCase().includes(q));
   }
 
-  // ---- Цена ----
-  const min = parseFloat(document.getElementById('minPrice').value || '0');
-  const max = parseFloat(document.getElementById('maxPrice').value || '0');
-  if(min>0) list = list.filter(p=>p.price >= min);
-  if(max>0) list = list.filter(p=>p.price <= max);
+  // Сохраняем отфильтрованный список и сбрасываем счётчик видимых товаров
+  FILTERED_PRODUCTS = list;
+  visibleCount = PAGE_SIZE;
 
-  // ---- Сортировка ----
-  const sort = document.getElementById('sortSelect').value;
-  if(sort === 'price-asc') list.sort((a,b)=>a.price-b.price);
-  if(sort === 'price-desc') list.sort((a,b)=>b.price-a.price);
-
-  renderProducts(list);
+  // Обновляем отображение товаров
+  updateProductsView();
 }
 
 /* ============================================================
    🟧 10. СОБЫТИЯ ФИЛЬТРОВ
 ============================================================ */
 document.getElementById('searchInput').addEventListener('input', filterProducts);
-document.getElementById('minPrice').addEventListener('input', filterProducts);
-document.getElementById('maxPrice').addEventListener('input', filterProducts);
-document.getElementById('sortSelect').addEventListener('change', filterProducts);
 
 /* ============================================================
    🟧 11. СОБЫТИЯ В ГРИДЕ ТОВАРОВ (делегирование)
@@ -719,13 +855,15 @@ document.getElementById('checkoutForm').addEventListener('submit',(e)=>{
   const phone = document.getElementById('checkoutPhone').value;
   const city = document.getElementById('checkoutCity').value;
   const post = document.getElementById('checkoutPost').value;
+  const service = document.getElementById('checkoutService').value;
 
-  let text = '🛒 Нове замовлення%0A';
+  let text = 'Samostroy Shop 🛒 Нове замовлення, сайт: http://www.samostroy.shop';
   text += `👤 Ім’я: ${name}%0A`;
   text += `📞 Телефон: ${phone}%0A`;
   text += `🏙 Місто: ${city}%0A`;
   text += `📦 Відділення НП: ${post}%0A%0A`;
   text += 'Товари:%0A';
+  text += `🚚 Доставка: ${service}%0A`;
 
   let total = 0;
   cart.forEach(item=>{
@@ -751,26 +889,56 @@ document.querySelectorAll('.js-consult').forEach(btn=>{
 });
 
 /* ============================================================
-   🟧 17. СЛАЙДЕР HERO
+   17. 🟧 HERO SLIDER — авто + клики по точкам
 ============================================================ */
-const slides = document.querySelectorAll('.hero-slide');
-const dots = document.querySelectorAll('.hero-dot');
-let currentSlide = 0;
+document.addEventListener('DOMContentLoaded', () => {
 
-function showSlide(i){
-  slides.forEach(s=>s.classList.remove('active'));
-  dots.forEach(d=>d.classList.remove('active'));
-  slides[i].classList.add('active');
-  dots[i].classList.add('active');
-  currentSlide = i;
-}
-dots.forEach(d=>{
-  d.addEventListener('click', ()=>showSlide(Number(d.dataset.index)));
+  const slides = document.querySelectorAll('.hero-slide');
+  const dotsWrap = document.getElementById('heroDots');
+
+  let currentSlide = 0;
+  let sliderTimer = null;
+
+  if (!slides.length || !dotsWrap) return;
+
+  // создаём точки
+  dotsWrap.innerHTML = Array.from(slides).map((_, i) => `
+    <button class="hero-dot ${i === 0 ? 'active' : ''}" data-index="${i}" type="button"></button>
+  `).join('');
+
+  const dots = dotsWrap.querySelectorAll('.hero-dot');
+
+  function showSlide(index) {
+    currentSlide = (index + slides.length) % slides.length;
+
+    slides.forEach(s => s.classList.remove('active'));
+    dots.forEach(d => d.classList.remove('active'));
+
+    slides[currentSlide].classList.add('active');
+    dots[currentSlide].classList.add('active');
+  }
+
+  // клики по точкам
+  dotsWrap.addEventListener('click', (e) => {
+    const dot = e.target.closest('.hero-dot');
+    if (!dot) return;
+
+    showSlide(+dot.dataset.index);
+    restartAuto();
+  });
+
+  function startAuto() {
+    sliderTimer = setInterval(() => showSlide(currentSlide + 1), 7000);
+  }
+  function restartAuto() {
+    clearInterval(sliderTimer);
+    startAuto();
+  }
+
+  startAuto();
 });
-setInterval(()=>{
-  currentSlide = (currentSlide+1)%slides.length;
-  showSlide(currentSlide);
-}, 7000);
+
+if (window.lucide) lucide.createIcons();
 
 /* ============================================================
    🟧 18. СКРОЛЛ К ТОВАРАМ
@@ -788,12 +956,15 @@ if (scrollBtn) {
 (async function init(){
   const yearSpan = document.getElementById('year');
   if (yearSpan) yearSpan.textContent = new Date().getFullYear();
+  
+  
+await loadProductsFromXML(); // грузим products.xml
+renderCategories();          // рисуем кнопки категорий
+renderSaleProducts();        // Загрузка акционных
+filterProducts();            // она сама заполнит FILTERED_PRODUCTS и вызовет updateProductsView() // показываем товары
+updateCartUI();              // корзина
+hideLoader();                // прячем анимацию после загрузки товаров
 
-  await loadProductsFromXML();   // грузим products.xml
-  renderCategories();            // рисуем кнопки категорий
-  renderSaleProducts();          // Загрузка акционных
-  renderProducts(PRODUCTS);      // показываем товары
-  updateCartUI();                // корзина
   if (window.lucide) {
     lucide.createIcons();
   }
@@ -802,31 +973,276 @@ if (scrollBtn) {
 /* ============================================================
    🟧 19. СКРОЛИНГ УЦЕНЁННЫХ ТОВАРОВ
 ============================================================ */
-const saleSlider = document.getElementById('saleSlider');
-if (saleSlider) {
-  saleSlider.addEventListener('wheel', (e) => {
+const burgerBtn = document.getElementById("burgerBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+
+// Открыть / закрыть
+burgerBtn.addEventListener("click", (e) => {
+  e.stopPropagation();
+  mobileMenu.classList.toggle("show");
+});
+
+// Закрытие при клике на ссылку
+document.querySelectorAll(".mobile-menu a").forEach(link => {
+  link.addEventListener("click", () => {
+    mobileMenu.classList.remove("show");
+  });
+});
+
+// Закрытие при клике вне меню
+document.addEventListener("click", (e) => {
+  if (!mobileMenu.contains(e.target) && !burgerBtn.contains(e.target)) {
+    mobileMenu.classList.remove("show");
+  }
+});
+
+// ESC
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") mobileMenu.classList.remove("show");
+});
+
+/* ========= SMOOTH SCROLL (к началу секции) ========= */
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener("click", function(e) {
+    const target = document.querySelector(this.getAttribute("href"));
+    if (!target) return;
+
     e.preventDefault();
-    saleSlider.scrollLeft += e.deltaY * 1.5;
-  }, { passive: false });
 
-  // Сенсорный свайп (touch)
-  let startX = 0;
-  let scrollLeftStart = 0;
-
-  saleSlider.addEventListener('touchstart', (e) => {
-    startX = e.touches[0].pageX;
-    scrollLeftStart = saleSlider.scrollLeft;
+    window.scrollTo({
+      top: target.offsetTop - 110,
+      behavior: "smooth"
+    });
   });
+});
 
-  saleSlider.addEventListener('touchmove', (e) => {
-    const dx = startX - e.touches[0].pageX;
-    saleSlider.scrollLeft = scrollLeftStart + dx;
-  });
+/* ===== СЛАЙДЕР НА УЦЕНЁННЫХ ТОВАРАХ ===== */
+const saleSlider = document.getElementById('saleSlider');
+
+document.getElementById('saleLeft').addEventListener('click', () => {
+  saleSlider.scrollBy({ left: -220, behavior: 'smooth' });
+});
+
+document.getElementById('saleRight').addEventListener('click', () => {
+  saleSlider.scrollBy({ left: 220, behavior: 'smooth' });
+});
+
+// СТАТІ
+/* ============================
+   LOAD BLOG PREVIEW
+============================ */
+async function loadBlogPreview() {
+  try {
+    const res = await fetch("blog.json");
+    const posts = await res.json();
+
+    const box = document.getElementById("homeBlogList");
+    if (!box) return;
+
+    const preview = posts.slice(0, 3); // показуємо тільки перші 3 статті
+
+    box.innerHTML = preview.map(p => `
+      <article class="home-blog-card" onclick="location.href='${p.url}'">
+        <div class="home-blog-card-title">${p.title}</div>
+        <div class="home-blog-card-desc">${p.desc}</div>
+        <div class="home-blog-card-link">Читати →</div>
+      </article>
+    `).join("");
+  } catch (e) {
+    console.warn("Блог недоступний");
+  }
 }
 
-// Клик по фото — увеличиваем / возвращаем назад
-const modalImg = document.getElementById('modalImage');
+loadBlogPreview();
 
-modalImg.addEventListener('click', () => {
-  modalImg.classList.toggle('zoomed');
-});
+
+// =========================
+// NEWYEAR START (REMOVE LATER)
+// =========================
+(function () {
+  // Сезон каждый год: 15 Dec - 15 Jan (включительно)
+  function isNewYearSeason(d) {
+    const m = d.getMonth(); // 0=Jan ... 11=Dec
+    const day = d.getDate();
+    return (m === 11 && day >= 15) || (m === 0 && day <= 15);
+  }
+
+  const now = new Date();
+  if (!isNewYearSeason(now)) {
+    document.documentElement.classList.remove("ny");
+    return;
+  }
+  document.documentElement.classList.add("ny");
+
+  // Год у логотипа: декабрь -> следующий год, январь -> текущий
+  const nyYear =
+    now.getMonth() === 11 ? now.getFullYear() + 1 : now.getFullYear();
+  const logo = document.querySelector(".ac-logo");
+  if (logo) logo.setAttribute("data-ny-year", String(nyYear));
+
+  // SVG лампочка
+  function bulbSVG() {
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path class="ny-glass" d="M12 3c-3.6 0-6.5 2.8-6.5 6.4 0 2.3 1.1 3.9 2.5 5.2.9.8 1.6 1.7 1.8 2.8h4.4c.2-1.1.9-2 1.8-2.8 1.4-1.3 2.5-2.9 2.5-5.2C18.5 5.8 15.6 3 12 3z"/>
+        <path class="ny-stroke" d="M12 3c-3.6 0-6.5 2.8-6.5 6.4 0 2.3 1.1 3.9 2.5 5.2.9.8 1.6 1.7 1.8 2.8h4.4c.2-1.1.9-2 1.8-2.8 1.4-1.3 2.5-2.9 2.5-5.2C18.5 5.8 15.6 3 12 3z"/>
+        <path class="ny-stroke" d="M9.2 18.4h5.6"/>
+        <path class="ny-stroke" d="M9.8 21h4.4"/>
+      </svg>
+    `;
+  }
+
+  // SVG снежинка
+  function snowflakeSVG() {
+    return `
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 2v20M4 6l16 12M20 6L4 18M6 4l2 2M18 4l-2 2M6 20l2-2M18 20l-2-2M2 12h3M19 12h3"/>
+      </svg>
+    `;
+  }
+
+  // ============ ГИРЛЯНДА (ТОЛЬКО ВИЗУАЛ, БЕЗ КЛИКОВ) ============
+  const garland = document.querySelector(".ny-garland");
+  if (garland && !garland.querySelector(".ny-garland-row")) {
+    // Важно: гирлянда не перехватывает клики вообще
+    garland.style.pointerEvents = "none";
+
+    const row = document.createElement("div");
+    row.className = "ny-garland-row";
+
+    const colors = [
+      "#ff4e6d",
+      "#5ce3a0",
+      "#38bdf8",
+      "#ffb347",
+      "#a855f7",
+      "#f97316",
+      "#ffffff",
+    ];
+
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+    const count = isMobile ? 14 : 22;
+
+    for (let i = 0; i < count; i++) {
+      const b = document.createElement("div");
+      b.className = "ny-bulb";
+
+      const r = Math.random();
+      if (r < 0.3) b.classList.add("ny-fast");
+      else if (r < 0.65) b.classList.add("ny-slow");
+
+      b.style.setProperty("--ny-drop", `${Math.round(Math.random() * 6 - 3)}px`);
+      b.style.setProperty("--ny-rot", `${Math.round(Math.random() * 10 - 5)}deg`);
+      b.style.setProperty("--ny-wave", `${(2.8 + Math.random() * 2.0).toFixed(2)}s`);
+      b.style.setProperty("--ny-blink", `${(0.9 + Math.random() * 3.0).toFixed(2)}s`);
+
+      const c = colors[i % colors.length];
+      b.style.setProperty("--ny-c", c);
+      b.style.animationDelay = `${(i * 0.1 + Math.random() * 0.25).toFixed(2)}s`;
+
+      b.innerHTML = bulbSVG();
+      row.appendChild(b);
+    }
+
+    garland.appendChild(row);
+
+    // ВАЖНО: никаких addEventListener("click") тут нет — только визуал
+  }
+
+  // ============ СНЕГ ============
+  const snow = document.querySelector(".ny-snow");
+  if (snow && !snow.querySelector(".ny-flake")) {
+    const isMobile = window.matchMedia("(max-width: 640px)").matches;
+
+    // ультра-лайт: минимум элементов
+    const flakesCount = isMobile ? 5 : 9;
+
+    for (let i = 0; i < flakesCount; i++) {
+      const f = document.createElement("div");
+      f.className = "ny-flake";
+
+      // внутренний слой для sway (дешево)
+      f.innerHTML = `<div class="ny-flake-inner">${snowflakeSVG()}</div>`;
+
+      const left = Math.random() * 100;
+      const size =
+        (isMobile ? 10 : 12) + Math.random() * (isMobile ? 8 : 12);
+      const op = 0.16 + Math.random() * 0.16;
+      const dur =
+        (isMobile ? 11 : 12) + Math.random() * (isMobile ? 8 : 12);
+      const sway = 10 + Math.random() * 18;
+      const swayDur = 3.6 + Math.random() * 3.6;
+
+      // дрейф по x
+      const x = Math.random() * 30 - 15;
+      const x2 = x + (Math.random() * 50 - 25);
+      const r2 = 360 + Math.round(Math.random() * 360);
+
+      f.style.left = `${left}%`;
+      f.style.setProperty("--ny-size", `${size.toFixed(1)}px`);
+      f.style.setProperty("--ny-op", op.toFixed(2));
+      f.style.setProperty("--ny-dur", `${dur.toFixed(2)}s`);
+      f.style.setProperty("--ny-sway", `${sway.toFixed(1)}px`);
+      f.style.setProperty("--ny-sway-dur", `${swayDur.toFixed(2)}s`);
+      f.style.setProperty("--ny-x", `${x.toFixed(1)}px`);
+      f.style.setProperty("--ny-x2", `${x2.toFixed(1)}px`);
+      f.style.setProperty("--ny-r2", `${r2}deg`);
+
+      // разнесём старт
+      const delay = Math.random() * (isMobile ? 4 : 6);
+      f.style.animationDelay = `${delay.toFixed(2)}s`;
+
+      snow.appendChild(f);
+    }
+  }
+})();
+// =========================
+// NEWYEAR END (REMOVE LATER)
+// =========================
+
+// =========================
+// FAQ accordion
+// =========================
+(function initFAQ(){
+  const items = document.querySelectorAll('.faq-item');
+  if(!items.length) return;
+
+  items.forEach(item => {
+    const btn = item.querySelector('.faq-q');
+    const ans = item.querySelector('.faq-a');
+    if(!btn || !ans) return;
+
+    // на всякий случай
+    ans.hidden = true;
+    btn.setAttribute('aria-expanded', 'false');
+
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      // если хочешь, чтобы открывался только один — раскомментируй блок:
+      /*
+      items.forEach(i => {
+        i.classList.remove('is-open');
+        const b = i.querySelector('.faq-q');
+        const a = i.querySelector('.faq-a');
+        if(b) b.setAttribute('aria-expanded', 'false');
+        if(a) a.hidden = true;
+      });
+      */
+
+      if(isOpen){
+        item.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+        ans.hidden = true;
+      } else {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+        ans.hidden = false;
+      }
+
+      // обновим иконки lucide после смены состояния (на всякий случай)
+      if(window.lucide) window.lucide.createIcons();
+    });
+  });
+})();
